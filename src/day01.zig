@@ -1,23 +1,7 @@
 const std = @import("std");
 const testing = std.testing;
 
-fn readStdinString(allocator: std.mem.Allocator) ![]const u8 {
-    var stdin = std.io.getStdIn();
-    const stat = try stdin.stat();
-    return try stdin.reader().readAllAlloc(allocator, stat.size);
-}
-
-pub fn main() !void {
-    var arena = std.heap.ArenaAllocator.init(std.heap.page_allocator);
-    defer arena.deinit();
-    const allocator = arena.allocator();
-    const input = try readStdinString(allocator);
-
-    std.debug.print("Part 01: {}\n", .{try part01(allocator, input)});
-    std.debug.print("Part 02: {}\n", .{try part02(allocator, input)});
-}
-
-fn part01(allocator: std.mem.Allocator, input: []const u8) !usize {
+pub fn part01(allocator: std.mem.Allocator, input: []const u8) !usize {
     var ans: usize = 0;
     var lines = std.ArrayList([]const u8).init(allocator);
     defer lines.deinit();
@@ -49,7 +33,7 @@ const WORDS = [_][]const u8{
     "nine",
 };
 
-fn part02(allocator: std.mem.Allocator, input: []const u8) !usize {
+pub fn part02(allocator: std.mem.Allocator, input: []const u8) !usize {
     var ans: usize = 0;
     var lines = std.ArrayList([]const u8).init(allocator);
     defer lines.deinit();
