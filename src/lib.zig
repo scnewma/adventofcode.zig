@@ -13,6 +13,7 @@ const Day = struct {
 pub fn executeDay(allocator: std.mem.Allocator, input: []const u8, no: usize) !Solution {
     const days = [_]Day{
         .{ .no = 1, .import = @import("./day01.zig") },
+        .{ .no = 2, .import = @import("./day02.zig") },
     };
 
     // this has to be an inline for instead of an array lookup because the

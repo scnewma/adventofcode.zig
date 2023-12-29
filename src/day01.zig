@@ -1,10 +1,8 @@
 const std = @import("std");
 const testing = std.testing;
 
-pub fn part01(allocator: std.mem.Allocator, input: []const u8) !usize {
+pub fn part01(_: std.mem.Allocator, input: []const u8) !usize {
     var ans: usize = 0;
-    var lines = std.ArrayList([]const u8).init(allocator);
-    defer lines.deinit();
     var linesIter = std.mem.tokenize(u8, input, "\n");
     while (linesIter.next()) |line| {
         var left: ?usize = null;
@@ -33,10 +31,8 @@ const WORDS = [_][]const u8{
     "nine",
 };
 
-pub fn part02(allocator: std.mem.Allocator, input: []const u8) !usize {
+pub fn part02(_: std.mem.Allocator, input: []const u8) !usize {
     var ans: usize = 0;
-    var lines = std.ArrayList([]const u8).init(allocator);
-    defer lines.deinit();
     var linesIter = std.mem.tokenize(u8, input, "\n");
     while (linesIter.next()) |line| {
         var left: ?usize = null;
