@@ -60,10 +60,9 @@ pub fn part02(allocator: std.mem.Allocator, input: []const u8) !usize {
 }
 
 const Game = std.meta.Tuple(&.{ sets.HashSet(u32), sets.HashSet(u32) });
-const Games = std.ArrayList(Game);
 
-fn parseInput(allocator: std.mem.Allocator, input: []const u8) !Games {
-    var games = Games.init(allocator);
+fn parseInput(allocator: std.mem.Allocator, input: []const u8) !std.ArrayList(Game) {
+    var games = std.ArrayList(Game).init(allocator);
 
     var linesIter = std.mem.tokenizeScalar(u8, input, '\n');
     while (linesIter.next()) |line| {
