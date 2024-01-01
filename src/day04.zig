@@ -70,24 +70,20 @@ fn parseInput(allocator: std.mem.Allocator, input: []const u8) !Games {
         const card = strings.splitOnce(line, ": ").?;
         const nums = strings.splitOnce(card.right, " | ").?;
 
-        var winning = sets.HashSet(u32).init(allocator);
-        var winningIter = std.mem.tokenizeScalar(u8, nums.left, ' ');
-        while (winningIter.next()) |w| {
-            const n = try std.fmt.parseInt(u32, w, 10);
-            _ = try winning.insert(n);
-        }
-
-        var mine = sets.HashSet(u32).init(allocator);
-        var mineIter = std.mem.tokenizeScalar(u8, nums.right, ' ');
-        while (mineIter.next()) |w| {
-            const n = try std.fmt.parseInt(u32, w, 10);
-            _ = try mine.insert(n);
-        }
-
-        try games.append(.{ winning, mine });
+        try games.append(.{ try createSet(allocator, nums.left), try createSet(allocator, nums.right) });
     }
 
     return games;
+}
+
+fn createSet(allocator: std.mem.Allocator, s: []const u8) !sets.HashSet(u32) {
+    var set = sets.HashSet(u32).init(allocator);
+    var setIter = std.mem.tokenizeScalar(u8, s, ' ');
+    while (setIter.next()) |w| {
+        const n = try std.fmt.parseInt(u32, w, 10);
+        _ = try set.insert(n);
+    }
+    return set;
 }
 
 const INPUT = @embedFile("inputs/day04.txt");
