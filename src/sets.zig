@@ -5,6 +5,7 @@ pub fn HashSet(comptime K: type) type {
         m: std.AutoHashMap(K, void),
 
         const Self = @This();
+        const Iterator = std.AutoHashMap(K, void).KeyIterator;
 
         pub fn init(allocator: std.mem.Allocator) Self {
             return .{ .m = std.AutoHashMap(K, void).init(allocator) };
@@ -34,7 +35,7 @@ pub fn HashSet(comptime K: type) type {
             return self.m.count();
         }
 
-        pub fn iterator(self: *const Self) std.AutoHashMap(K, void).KeyIterator {
+        pub fn iterator(self: *const Self) Iterator {
             return self.m.keyIterator();
         }
 
@@ -46,7 +47,7 @@ pub fn HashSet(comptime K: type) type {
 
 pub fn IntersectionIterator(comptime K: type) type {
     return struct {
-        iter: std.AutoHashMap(K, void).KeyIterator,
+        iter: HashSet(K).Iterator,
         other: HashSet(K),
 
         const Self = @This();
