@@ -37,5 +37,27 @@ pub fn HashSet(comptime K: type) type {
         pub fn iterator(self: *const Self) std.AutoHashMap(K, void).KeyIterator {
             return self.m.keyIterator();
         }
+
+        pub fn intersectionIterator(self: *const Self, other: HashSet(K)) IntersectionIterator(K) {
+            return .{ .iter = self.iterator(), .other = other };
+        }
+    };
+}
+
+pub fn IntersectionIterator(comptime K: type) type {
+    return struct {
+        iter: std.AutoHashMap(K, void).KeyIterator,
+        other: HashSet(K),
+
+        const Self = @This();
+
+        pub fn next(self: *Self) ?K {
+            while (self.iter.next()) |e| {
+                if (self.other.contains(e.*)) {
+                    return e.*;
+                }
+            }
+            return null;
+        }
     };
 }

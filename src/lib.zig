@@ -14,6 +14,7 @@ const DAYS = [_]Day{
     .{ .no = 1, .import = @import("./day01.zig") },
     .{ .no = 2, .import = @import("./day02.zig") },
     .{ .no = 3, .import = @import("./day03.zig") },
+    .{ .no = 4, .import = @import("./day04.zig") },
 };
 
 pub fn executeDay(allocator: std.mem.Allocator, input: []const u8, no: usize) !Solution {
