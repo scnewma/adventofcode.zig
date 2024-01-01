@@ -1,6 +1,7 @@
 const std = @import("std");
 const sets = @import("./sets.zig");
 const strings = @import("./strings.zig");
+const itertools = @import("./itertools.zig");
 
 const testing = std.testing;
 
@@ -16,11 +17,8 @@ pub fn part01(allocator: std.mem.Allocator, input: []const u8) !usize {
         const winning = game[0];
         const mine = game[1];
 
-        var count: u32 = 0;
-        var iter = winning.intersectionIterator(mine);
-        while (iter.next()) |_| {
-            count += 1;
-        }
+        var intersection = winning.intersectionIterator(mine);
+        const count: u32 = @intCast(itertools.count(&intersection));
 
         if (count > 0) {
             ans += std.math.pow(u32, 2, count - 1);
@@ -46,11 +44,8 @@ pub fn part02(allocator: std.mem.Allocator, input: []const u8) !usize {
         const winning = game[0];
         const mine = game[1];
 
-        var count: u32 = 0;
-        var iter = winning.intersectionIterator(mine);
-        while (iter.next()) |_| {
-            count += 1;
-        }
+        var intersection = winning.intersectionIterator(mine);
+        const count: u32 = @intCast(itertools.count(&intersection));
 
         for (1..count + 1) |j| {
             cardCopies.items[i + j] += cardCopies.items[i];
