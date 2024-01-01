@@ -61,7 +61,7 @@ const Color = enum { red, green, blue };
 fn parse_game(allocator: std.mem.Allocator, line: []const u8) !std.ArrayList(RGB) {
     var hands = std.ArrayList(RGB).init(allocator);
     const line_data = strings.splitOnce(line, ": ").?;
-    var handsIter = std.mem.tokenizeSequence(u8, line_data.right, "; ");
+    var handsIter = std.mem.tokenizeSequence(u8, line_data[1], "; ");
     while (handsIter.next()) |hand| {
         var cubesIter = std.mem.tokenizeSequence(u8, hand, ", ");
         while (cubesIter.next()) |cube| {

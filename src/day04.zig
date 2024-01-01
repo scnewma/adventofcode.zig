@@ -68,9 +68,9 @@ fn parseInput(allocator: std.mem.Allocator, input: []const u8) !Games {
     var linesIter = std.mem.tokenizeScalar(u8, input, '\n');
     while (linesIter.next()) |line| {
         const card = strings.splitOnce(line, ": ").?;
-        const nums = strings.splitOnce(card.right, " | ").?;
+        const nums = strings.splitOnce(card[1], " | ").?;
 
-        try games.append(.{ try createSet(allocator, nums.left), try createSet(allocator, nums.right) });
+        try games.append(.{ try createSet(allocator, nums[0]), try createSet(allocator, nums[1]) });
     }
 
     return games;
